@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>عداد الحب ❤️</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #fff0f5, #ffe6eb);
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding: 40px 20px;
+      color: #d6005d;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #d6005d;
+      color: white;
+      cursor: pointer;
+    }
+
+    .heart-wrapper {
+      width: 200px;
+      margin: 40px auto;
+      position: relative;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .percent-text {
+      font-size: 24px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 22px;
+      white-space: pre-line;
+      max-width: 300px;
+      margin-inline: auto;
+    }
+
+    #copyBtn {
+      display: none;
+      margin-top: 15px;
+      background-color: #ff3366;
+    }
+
+    #copiedMsg {
+      color: green;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>حاسبة نسبة الحب 💘</h1>
+
+  <input type="text" id="name1" placeholder="اسمك">
+  <input type="text" id="name2" placeholder="اسمه/اسمها">
+  <br>
+  <button onclick="calculateLove()">احسب الحب</button>
+
+  <div class="heart-wrapper">
+    <svg viewBox="0 0 100 100">
+      <defs>
+        <clipPath id="heartClip">
+          <path d="M50 91S4 57 4 30c0-13 11-24 24-24 10 0 19 6 22 14 3-8 12-14 22-14 13 0 24 11 24 24 0 27-46 61-46 61z"/>
+        </clipPath>
+      </defs>
+
+      <rect id="fillRect" x="0" y="100" width="100" height="100" fill="#ff3366" clip-path="url(#heartClip)"/>
+
+      <path d="M50 91S4 57 4 30c0-13 11-24 24-24 10 0 19 6 22 14 3-8 12-14 22-14 13 0 24 11 24 24 0 27-46 61-46 61z"
+        fill="none" stroke="#ff3366" stroke-width="3"/>
+    </svg>
+  </div>
+
+  <div class="percent-text" id="percentText">0%</div>
+  <div id="result"></div>
+
+  <button id="copyBtn" onclick="copyLink()">🔗 انسخ رابط الموقع وشاركه مع الحبايب</button>
+  <div id="copiedMsg">✅ تم نسخ الرابط!</div>
+
+  <script>
+    function calculateLove() {
+      const percent = Math.floor(Math.random() * 101);
+      const fillRect = document.getElementById("fillRect");
+      const percentText = document.getElementById("percentText");
+      const result = document.getElementById("result");
+      const copyBtn = document.getElementById("copyBtn");
+      const copiedMsg = document.getElementById("copiedMsg");
+
+      let current = 0;
+      percentText.textContent = "0%";
+      result.textContent = "";
+      fillRect.setAttribute("y", 100);
+      copyBtn.style.display = "none";
+      copiedMsg.style.display = "none";
+
+      const interval = setInterval(() => {
+        percentText.textContent = current + "%";
+        let newY = 100 - current;
+        fillRect.setAttribute("y", newY);
+
+        if (current >= percent) {
+          clearInterval(interval);
+
+          let message = "";
+          if (percent <= 20) {
+            message = "وش ذا الحب النايم 💔";
+          } else if (percent <= 40) {
+            message = "وش ذا الحب الي الله يحرمنا منه 😐";
+          } else if (percent <= 70) {
+            message = "اثنينكم بلاير بس الي ينقفط اول خاين 🥰";
+          } else if (percent <= 90) {
+            message = "ماعرفناكم يا قيس وليلى 🔥";
+          } else {
+            message = "هذا حب ولا هوس؟! ❤️‍🔥";
+          }
+
+          result.textContent = message;
+          copyBtn.style.display = "inline-block";
+        }
+
+        current++;
+      }, 20);
+    }
+
+    function copyLink() {
+      const url = window.location.href;
+      navigator.clipboard.writeText(url).then(() => {
+        const copiedMsg = document.getElementById("copiedMsg");
+        copiedMsg.style.display = "block";
+        setTimeout(() => {
+          copiedMsg.style.display = "none";
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
